@@ -1,0 +1,28 @@
+{
+  "full_name": "Your Name",
+  "email": "you@example.com",
+  "github_username": "your-github-username",
+  "project_name": "Python Boilerplate",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_short_description": "A short description of the project.",
+  "affiliation": "Microsoft AI for Good Research Lab",
+  "version": "0.1.0",
+  "command_line_interface": ["Click", "Argparse", "No command-line interface"],
+  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"],
+  "deep-learning": ["no", "yes"],
+  "__prompts__": {
+    "affiliation": "Affiliation for the paper's title page",
+    "deep-learning": {
+      "__prompt__": "Add the deep-learning pack? (PyTorch train/evaluate/infer scripts, YAML configs, experiment log)",
+      "no": "no - plain Python package",
+      "yes": "yes - add configs/, scripts/, examples/ and a torch dependency"
+    }
+  },
+  "_copy_without_render": [
+    "paper/*.bib",
+    "paper/*.cls",
+    "paper/arxiv_collector.py",
+    "paper/figures/*",
+    "paper/scripts/*"
+  ]
+}

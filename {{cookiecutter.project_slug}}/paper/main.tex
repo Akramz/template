@@ -1,0 +1,107 @@
+{%- macro tex(value) -%}
+{{ value | replace('\\', '\\textbackslash{}') | replace('&', '\\&') | replace('%', '\\%') | replace('$', '\\$') | replace('#', '\\#') | replace('_', '\\_') }}
+{%- endmacro -%}
+{%- raw -%}
+\documentclass[
+  journal=medium,
+  manuscript=technical-report,
+  year=\the\year,
+  volume=0,
+]{cup-journal}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{nicefrac}
+\usepackage{xspace}
+\usepackage[nopatch]{microtype}
+\usepackage{hyperref}
+\usepackage{url}
+
+\colorlet{tbrowcolor}{white}
+\colorlet{tbheadcolor}{white}
+
+\addbibresource{references.bib}
+
+% Scalable typewriter font: the class sets none, and Computer Modern typewriter
+% falls back to bitmap fonts on systems without cm-super.
+\renewcommand{\ttdefault}{lmtt}
+
+% Editing placeholder. Remove every one before submitting.
+\newcommand{\todo}[1]{{\color{red}\textbf{[TODO:} #1\textbf{]}}}
+
+\makeatletter
+% Drop the volume number from the title-page header line.
+\patchcmd{\@maketitle}
+  {{\volumefont\cup@vol}, }
+  {}
+  {}{}
+% Bold the run-in \paragraph headings; the class sets only \sffamily.
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {3.25ex \@plus1ex \@minus.2ex}%
+  {-1em}%
+  {\sffamily\bfseries}}
+% The class appends "et al." to the running head whatever the author count.
+% Drop it while there is only one author.
+\AtBeginDocument{\ifnum\cup@author@cnt=\@ne\renewcommand*\cup@etal{}\fi}
+\makeatother
+{%- endraw %}
+
+\title{ {{ tex(cookiecutter.project_name) }} }
+
+\author{ {{ tex(cookiecutter.full_name) }} }
+\affiliation{ {{ tex(cookiecutter.affiliation) }} }
+\email[{{ tex(cookiecutter.full_name) }}]{ {{ tex(cookiecutter.email) }} }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+What is the problem, why is it interesting, what is the proposed solution, what did it achieve, and what impact will it have.
+\end{abstract}
+
+\section{Introduction}
+
+Open with the problem and why it matters.
+
+\subsection{Related work}
+
+Survey prior approaches.
+Cite papers making contrary claims where you can.
+
+\subsection{Gap}
+
+State what prior work leaves unsolved, then describe the experiments in one paragraph.
+
+\section{Methods}
+
+Define inputs, outputs, and notation precisely.
+
+\section{Results}
+
+Interpret the numbers.
+Say what they mean, not only what they are.
+
+\section{Conclusion}
+
+Limitations first, then concrete next steps.
+
+\section*{Acknowledgments}
+
+Thank the people and the funders who made the work possible.
+
+\printbibliography
+
+\clearpage
+\appendix
+
+\section{Appendix}
+
+Optional supporting material.
+
+\end{document}

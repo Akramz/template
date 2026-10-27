@@ -1,0 +1,50 @@
+[project]
+name = "python-project-template"
+version = "0.6.0"
+description = "Cookiecutter template for small Python repositories, with a coding-agent contract and one verify gate"
+readme = "README.rst"
+requires-python = ">=3.11"
+license = "BSD-3-Clause"
+authors = [
+    { name = "Akram Zaytar", email = "akram@example.com" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development",
+]
+keywords = ["cookiecutter", "template", "package"]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0",
+    "cookiecutter>=1.4.0",
+    "pytest-cookies>=0.7.0",
+    "pyyaml>=6.0.0",
+    "ruff",
+]
+
+[tool.uv]
+package = false
+
+# uv.lock stays on canonical PyPI URLs. Without this pin a machine-wide index in
+# ~/.config/uv/uv.toml silently rewrites the lock on every uv run.
+# To install behind a network that blocks PyPI, override with UV_DEFAULT_INDEX.
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
+
+[tool.ruff]
+exclude = ["{{cookiecutter.project_slug}}"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

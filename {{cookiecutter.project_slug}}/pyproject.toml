@@ -1,0 +1,85 @@
+{%- set license_classifiers = {
+    'MIT license': 'License :: OSI Approved :: MIT License',
+    'BSD license': 'License :: OSI Approved :: BSD License',
+    'ISC license': 'License :: OSI Approved :: ISC License (ISCL)',
+    'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
+    'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
+} -%}
+{%- set license_ids = {
+    'MIT license': 'MIT',
+    'BSD license': 'BSD-3-Clause',
+    'ISC license': 'ISC',
+    'Apache Software License 2.0': 'Apache-2.0',
+    'GNU General Public License v3': 'GPL-3.0-only'
+} -%}
+[project]
+name = {{ cookiecutter.project_slug | jsonify }}
+version = {{ cookiecutter.version | jsonify }}
+description = {{ cookiecutter.project_short_description | jsonify }}
+readme = "README.md"
+requires-python = ">=3.11"
+{%- if cookiecutter.open_source_license in license_ids %}
+license = "{{ license_ids[cookiecutter.open_source_license] }}"
+{%- endif %}
+authors = [
+    { name = {{ cookiecutter.full_name | jsonify }}, email = {{ cookiecutter.email | jsonify }} },
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+{%- if cookiecutter.open_source_license in license_classifiers %}
+    "{{ license_classifiers[cookiecutter.open_source_license] }}",
+{%- endif %}
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+    "click>=8.1",
+{%- endif %}
+{%- if cookiecutter["deep-learning"] == 'yes' %}
+    "pyyaml>=6.0",
+    "torch>=2.4",
+{%- endif %}
+]
+
+[project.urls]
+Homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
+
+{%- if 'no' not in cookiecutter.command_line_interface|lower %}
+
+[project.scripts]
+{{ cookiecutter.project_slug }} = "{{ cookiecutter.project_slug }}.cli:main"
+{%- endif %}
+
+[dependency-groups]
+dev = [
+    "bandit>=1.8",
+    "pip-audit>=2.9",
+    "pytest>=8.0",
+    "ruff>=0.12",
+    "ty==0.0.90",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# uv.lock keeps canonical PyPI URLs on any machine. Behind a network that blocks PyPI,
+# set UV_DEFAULT_INDEX to an index it allows for the command.
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.ty.environment]
+python-version = "3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
