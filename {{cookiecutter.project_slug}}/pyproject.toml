@@ -67,13 +67,6 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-# uv.lock keeps canonical PyPI URLs on any machine. Behind a network that blocks PyPI,
-# set UV_DEFAULT_INDEX to an index it allows for the command.
-[[tool.uv.index]]
-name = "pypi"
-url = "https://pypi.org/simple"
-default = true
-
 [tool.ruff.lint]
 select = ["E", "F", "I"]
 

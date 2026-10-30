@@ -113,8 +113,8 @@ def create_lockfile():
             f"uv lock failed, so uv.lock was not generated:\n{indent(error)}",
             remedy,
             hint=(
-                "If your network blocks PyPI, set UV_DEFAULT_INDEX to an index it "
-                "allows. The project pins PyPI, so ~/.config/uv/uv.toml is not enough."
+                "If your network blocks PyPI, set UV_DEFAULT_INDEX or the default "
+                "index in ~/.config/uv/uv.toml to an index it allows."
             ),
         )
 

@@ -71,10 +71,9 @@ def test_pack_matrix_prunes_unselected_assets(cookies, selected_pack):
         dependencies = pyproject["project"]["dependencies"]
         has_torch = any(item.startswith("torch") for item in dependencies)
         assert has_torch is (selected_pack == "deep-learning")
-        indexes = pyproject["tool"]["uv"]["index"]
-        assert indexes == [
-            {"name": "pypi", "url": "https://pypi.org/simple", "default": True}
-        ]
+        # A pinned index would override the user's uv config and break locking
+        # behind a network that blocks PyPI.
+        assert "index" not in pyproject.get("tool", {}).get("uv", {})
 
 
 def test_default_profile_is_minimal(cookies):

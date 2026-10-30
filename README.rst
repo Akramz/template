@@ -42,11 +42,15 @@ Generation never fails because of a network problem or a missing tool. If ``uv l
 ``git init`` cannot run, the project is still written and the hook prints the command to run by
 hand.
 
-Generated projects pin PyPI, so ``uv.lock`` holds canonical URLs on any machine. If your
-network blocks public PyPI, set ``UV_DEFAULT_INDEX`` to an index it allows when you generate
-and sync::
+Generated projects use uv's default index. If your network blocks public PyPI, set an
+allowed index once in ``~/.config/uv/uv.toml``::
 
-    export UV_DEFAULT_INDEX=https://example.internal/pypi/simple
+    [[index]]
+    url = "https://example.internal/pypi/simple"
+    default = true
+
+``uv.lock`` then records that index's URLs. Commit such a lock only if everyone who syncs the
+project can reach the index.
 
 Develop this template
 ---------------------
