@@ -22,6 +22,8 @@ Generation initializes this directory as a Git repository on the `main` branch.
 - `AGENTS.md` contains the small cross-agent project contract.
 - `.codex/config.toml` configures a workspace-write sandbox.
 - `CLAUDE.md` adapts the contract for Claude Code.
+- `.claude/skills/verify/SKILL.md` defines global verification: fast checks plus end-to-end flows.
+- `REVIEW.md` lists what a reviewer must look for in this repo.
 
 Agents must run verification and security checks. High-risk changes should receive independent
 review.
