@@ -24,6 +24,8 @@ PACK_SENTINELS = {
 ALWAYS_PRESENT = [
     "AGENTS.md",
     "CLAUDE.md",
+    "REVIEW.md",
+    ".claude/skills/verify/SKILL.md",
     ".codex/config.toml",
     "knowledge_base/notes.md",
     "paper/main.tex",
@@ -33,12 +35,11 @@ ALWAYS_PRESENT = [
 
 # No GitHub plane: no CI, no Copilot adapter, no repository templates. No
 # harness-enforced checks and no subagent profiles: the contract in AGENTS.md
-# is the only handoff gate. Skills and memory settings are the user's own, so
-# projects ship no .claude directory at all.
+# is the only handoff gate. The one project skill is verify; other skills and
+# memory settings are the user's own.
 NEVER_PRESENT = [
     ".github",
     ".agent",
-    ".claude",
     ".agents",
     ".codex/skills",
     "deck",

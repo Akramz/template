@@ -5,8 +5,9 @@
 
 ## Verification
 
-- Run targeted checks while iterating, then run `make verify` before handoff.
+- Run targeted checks while iterating, then the `verify` skill (`.claude/skills/verify/SKILL.md`) before handoff.
 - Do not weaken, skip, mock away, or special-case a check to make it pass.
-- Add deterministic tests for fixed regressions and observable behavior.
+- Add deterministic tests for fixed regressions and observable behavior: end-to-end, differential, or property tests. No unit tests.
 - Report commands actually run, failures, skipped work, and remaining uncertainty.
 - Use independent review for high-risk changes.
+- Reviews follow `REVIEW.md`.
